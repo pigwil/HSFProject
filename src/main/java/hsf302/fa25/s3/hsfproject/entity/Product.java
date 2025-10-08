@@ -15,24 +15,19 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "id")
     private int id;
-    @Column(name = "name", length = 100, nullable = false)
-    private String name;
-    @Column(name = "description", length = 500)
-    private String description;
-    @Column(name = "price", nullable = false)
-    private double price;
-    @Column(name = "stock", nullable = false)
-    private int stock;
-    @Column(name = "image_url", length = 200)
-    private String imageUrl;
+
+    @Column(name = "product_code", length = 50, nullable = false, unique = true)
+    private String productCode;
+    @Column(name = "product_name", length = 100, nullable = false)
+    private String productName;
+    @Column(name = "product_status", length = 50, nullable = false)
+    private String productStatus;
+    @Column(name = "brand", length = 50, nullable = false)
+    private String brand;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<CartItem> cartItems;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems;
-
+    private List<OrderDetail> orderDetails;
 
 }

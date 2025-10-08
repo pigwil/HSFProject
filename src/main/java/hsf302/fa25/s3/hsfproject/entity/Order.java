@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "orders")
@@ -17,12 +20,17 @@ public class Order {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "created_by")
+    private User createdBy;
+    @Column(name = "created_date")
+    private LocalDate createdDate;
+    @Column(name = "order_type", length = 20, nullable = false)
+    private String orderType;
+    @Column(name = "order_status", length = 20, nullable = false)
+    private String orderStatus;
+    @Column(name = "attributes", length = 200)
+    private String attributes;
 
-    @Column(name = "total_amount", nullable = false)
-    private double totalAmount;
-
-    @Column(name = "status", length = 20, nullable = false)
-    private String status;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
 }
