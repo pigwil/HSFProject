@@ -38,14 +38,14 @@ laptopshop/
 │   │   │
 │   │   │   ├── entity/
 │   │   │   │   ├── User.java
-│   │   │   │   ├── Product.java
+│   │   │   │   ├── Laptop.java
 │   │   │   │   ├── CartItem.java
 │   │   │   │   ├── Order.java
 │   │   │   │   └── OrderItem.java
 │   │   │
 │   │   │   ├── repository/
 │   │   │   │   ├── UserRepository.java
-│   │   │   │   ├── ProductRepository.java
+│   │   │   │   ├── LaptopRepository.java
 │   │   │   │   ├── CartItemRepository.java
 │   │   │   │   ├── OrderRepository.java
 │   │   │   │   └── OrderItemRepository.java
