@@ -1,6 +1,6 @@
-package hsf302.fa25.s3.hsfproject.repository;
+package com.example.laptopshop.repository;
 
-import hsf302.fa25.s3.hsfproject.entity.User;
+import com.example.laptopshop.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

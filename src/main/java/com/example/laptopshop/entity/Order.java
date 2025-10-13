@@ -1,4 +1,4 @@
-package hsf302.fa25.s3.hsfproject.entity;
+package com.example.laptopshop.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

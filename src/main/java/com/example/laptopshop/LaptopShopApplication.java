@@ -1,13 +1,13 @@
-package hsf302.fa25.s3.hsfproject;
+package com.example.laptopshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HsfProjectApplication {
+public class LaptopShopApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HsfProjectApplication.class, args);
+        SpringApplication.run(LaptopShopApplication.class, args);
     }
 
 }

@@ -1,6 +1,6 @@
-package hsf302.fa25.s3.hsfproject.repository;
+package com.example.laptopshop.repository;
 
-import hsf302.fa25.s3.hsfproject.entity.Role;
+import com.example.laptopshop.entity.Role;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
