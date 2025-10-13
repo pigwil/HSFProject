@@ -105,7 +105,7 @@ laptopshop/
 |-----|-------------|-----------------------------|
 | **1** | **G.Anh** | Thiết kế **Entity**, **Repository**, **Database** (User, Product, Order, CartItem, OrderItem) |
 | **2** | **Hạnh** | **Controller + Service** cho **Sản phẩm & Giỏ hàng** |
-| **3** | *Thành ** | **Controller + Service** cho **Đặt hàng & Quản lý đơn hàng** (bao gồm thống kê, doanh thu) |
+| **3** | *Thành** | **Controller + Service** cho **Đặt hàng & Quản lý đơn hàng** (bao gồm thống kê, doanh thu) |
 | **4** | **Mạnh Đức** | **Đăng ký, đăng nhập, phân quyền (Spring Security)** |
 | **5** | **Huy** | Thiết kế giao diện người dùng & admin |
 
