@@ -39,14 +39,14 @@ laptopshop/
 │   │   │   ├── entity/
 │   │   │   │   ├── User.java
 │   │   │   │   ├── Laptop.java
-│   │   │   │   ├── CartItem.java
+│   │   │   │   ├── Role.java
 │   │   │   │   ├── Order.java
 │   │   │   │   └── OrderItem.java
 │   │   │
 │   │   │   ├── repository/
 │   │   │   │   ├── UserRepository.java
 │   │   │   │   ├── LaptopRepository.java
-│   │   │   │   ├── CartItemRepository.java
+│   │   │   │   ├── RoleRepository.java
 │   │   │   │   ├── OrderRepository.java
 │   │   │   │   └── OrderItemRepository.java
 │   │   │
