@@ -15,7 +15,7 @@ import java.util.List;
 public class Laptop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(name = "laptop_code", length = 50, nullable = false, unique = true)
     private String laptopCode;
     @Column(name = "laptop_name", length = 100, nullable = false)
