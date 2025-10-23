@@ -1,4 +1,3 @@
-
 package com.example.laptopshop.config;
 
 import com.example.laptopshop.entity.Role;
@@ -8,8 +7,6 @@ import com.example.laptopshop.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.UUID;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -42,17 +39,27 @@ public class DataInitializer implements CommandLineRunner {
             roleRepository.save(adminRole);
         }
 
-        // create default admin if not present
+        // Create default admin if not present
         if (userRepository.findByUsername("admin") == null) {
             User admin = new User();
-            admin.setUserCode(UUID.randomUUID().toString());
+            // Sử dụng userCode ngắn hơn thay vì UUID.randomUUID().toString() (36 ký tự)
+            admin.setUserCode("ADMIN001"); // Chỉ 8 ký tự
             admin.setFullName("Administrator");
             admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("admin123")); // change password after first login
-            admin.setAddress("");
-            admin.setPhone("");
+            admin.setPassword(passwordEncoder.encode("admin123")); // BCrypt ~ 60 chars
+            admin.setAddress("N/A"); // Thay vì chuỗi rỗng
+            admin.setPhone("N/A"); // Thay vì chuỗi rỗng
             admin.setRole(adminRole);
-            userRepository.save(admin);
+
+            try {
+                userRepository.save(admin);
+                System.out.println("✓ Admin user created successfully!");
+            } catch (Exception e) {
+                System.err.println("✗ Failed to create admin user: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("✓ Admin user already exists!");
         }
     }
 }
