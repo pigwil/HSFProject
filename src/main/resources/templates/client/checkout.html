@@ -1,0 +1,18 @@
+<!-- templates/user/checkout.html -->
+<div th:fragment="content">
+    <h2>Checkout</h2>
+    <div class="card">
+        <form th:action="@{/order/create}" method="post">
+            <div class="form-group">
+                <label>Shipping Address</label>
+                <textarea name="shippingAddress" rows="3" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Note</label>
+                <textarea name="note" rows="2" class="form-control"></textarea>
+            </div>
+            <p><strong>Total:</strong> <span th:text="${#numbers.formatCurrency(totalAmount)}">$2,400</span></p>
+            <button type="submit" class="btn btn-success">Place Order</button>
+        </form>
+    </div>
+</div>

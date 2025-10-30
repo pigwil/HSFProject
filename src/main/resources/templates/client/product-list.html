@@ -1,0 +1,15 @@
+<!-- templates/user/product-list.html -->
+<div th:fragment="content">
+    <h2>Product List</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+        <div th:each="p : ${products}" class="card">
+            <img th:src="${p.imageUrl} ?: 'https://via.placeholder.com/300x200?text=No+Image'"
+                 style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;" />
+            <h3 th:text="${p.name}">Dell XPS 13</h3>
+            <p><strong>Brand:</strong> <span th:text="${p.brand}">Dell</span></p>
+            <p><strong>Price:</strong> <span th:text="${#numbers.formatCurrency(p.price)}">$1,200</span></p>
+            <p><strong>Stock:</strong> <span th:text="${p.stock}">10</span></p>
+            <a th:href="@{'/product/' + ${p.id}}" class="btn btn-primary" style="width: 100%;">View Detail</a>
+        </div>
+    </div>
+</div>

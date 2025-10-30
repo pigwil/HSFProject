@@ -1,0 +1,35 @@
+<!-- templates/user/cart.html -->
+<div th:fragment="content">
+    <h2>Your Cart</h2>
+    <div class="card">
+        <table class="table" th:if="${#lists.isEmpty(cartItems) == false}">
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            <tr th:each="item : ${cartItems}">
+                <td th:text="${item.product.name}">Dell</td>
+                <td th:text="${#numbers.formatCurrency(item.unitPrice)}">$1,200</td>
+                <td>
+                    <form th:action="@{'/cart/update/' + ${item.product.id}}" method="post" style="display: inline;">
+                        <input type="number" name="quantity" th:value="${item.quantity}" min="1" style="width: 60px;" />
+                        <button type="submit" class="btn btn-primary btn-small">Update</button>
+                    </form>
+                </td>
+                <td th:text="${#numbers.formatCurrency(item.unitPrice * item.quantity)}">$2,400</td>
+                <td><a th:href="@{'/cart/remove/' + ${item.product.id}}" class="btn btn-danger">Remove</a></td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                <td colspan="2" th:text="${#numbers.formatCurrency(totalAmount)}">$2,400</td>
+            </tr>
+        </table>
+        <div th:if="${#lists.isEmpty(cartItems)}" class="alert alert-info">
+            Your cart is empty. <a th:href="@{/}">Shop now!</a>
+        </div>
+        <a th:href="@{/checkout}" class="btn btn-success" th:if="${totalAmount > 0}">Checkout</a>
+    </div>
+</div>

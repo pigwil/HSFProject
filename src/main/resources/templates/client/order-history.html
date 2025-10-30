@@ -1,0 +1,30 @@
+<!-- templates/user/order-history.html -->
+<div th:fragment="content">
+    <h2>Order History</h2>
+    <div class="card">
+        <table class="table" th:if="${#lists.isEmpty(orders) == false}">
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            <tr th:each="o : ${orders}">
+                <td th:text="${o.id}">1001</td>
+                <td th:text="${#temporals.format(o.orderDate, 'dd/MM/yyyy')}">01/01/2025</td>
+                <td th:text="${#numbers.formatCurrency(o.totalAmount)}">$2,400</td>
+                <td>
+                    <span class="badge"
+                          th:classappend="${o.status == 'PENDING'} ? 'badge-warning' :
+                                          ${o.status == 'SHIPPED'} ? 'badge-success' : 'badge-danger'"
+                          th:text="${o.status.displayName}">Pending</span>
+                </td>
+                <td><a th:href="@{'/order/detail/' + ${o.id}}" class="btn btn-primary">View</a></td>
+            </tr>
+        </table>
+        <div th:if="${#lists.isEmpty(orders)}" class="alert alert-info">
+            You have no orders yet.
+        </div>
+    </div>
+</div>

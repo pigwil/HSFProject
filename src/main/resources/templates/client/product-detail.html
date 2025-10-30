@@ -1,0 +1,26 @@
+<!-- templates/user/product-detail.html -->
+<div th:fragment="content">
+    <div class="card">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px;">
+                <img th:src="${product.imageUrl} ?: 'https://via.placeholder.com/500'"
+                     style="width: 100%; border-radius: 8px;" />
+            </div>
+            <div style="flex: 2; min-width: 300px;">
+                <h2 th:text="${product.name}">Dell XPS 13</h2>
+                <p><strong>Brand:</strong> <span th:text="${product.brand}">Dell</span></p>
+                <p><strong>CPU:</strong> <span th:text="${product.cpu}">i7</span></p>
+                <p><strong>RAM:</strong> <span th:text="${product.ram}">16GB</span></p>
+                <p><strong>Price:</strong> <span style="font-size: 1.5em; color: #e74c3c;" th:text="${#numbers.formatCurrency(product.price)}">$1,200</span></p>
+                <p><strong>Stock:</strong>
+                    <span th:text="${product.stock > 0} ? 'In Stock' : 'Out of Stock'"
+                          th:classappend="${product.stock > 0} ? 'badge badge-success' : 'badge badge-danger'"></span>
+                </p>
+                <form th:action="@{'/cart/add/' + ${product.id}}" method="post">
+                    <button type="submit" class="btn btn-success" th:disabled="${product.stock == 0}">Add to Cart</button>
+                </form>
+                <a th:href="@{/}" class="btn btn-primary">Back</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<!-- src/main/resources/templates/layout.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${pageTitle} ?: 'LaptopShop'">LaptopShop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container header-content">
+        <a th:href="@{/}" class="logo">LaptopShop</a>
+        <div sec:authorize="isAuthenticated()">
+            <span>Hello, <span sec:authentication="name"></span></span>
+            <a th:href="@{/logout}" class="btn-logout">Logout</a>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}" class="btn-login">Login</a>
+        </div>
+    </div>
+</header>
+
+<!-- ADMIN SIDEBAR -->
+<nav class="sidebar" sec:authorize="hasRole('ADMIN')">
+    <ul>
+        <li><a th:href="@{/admin}">Dashboard</a></li>
+        <li><a th:href="@{/admin/products}">Products</a></li>
+        <li><a th:href="@{/admin/orders}">Orders</a></li>
+        <li><a th:href="@{/admin/stats}">Revenue</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main-content" th:classappend="sec:authorize='hasRole('ADMIN')' ? 'has-sidebar' : ''">
+    <div class="container">
+        <div th:replace="${content}"></div>
+    </div>
+</main>
+
+</body>
+</html>
