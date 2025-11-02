@@ -3,8 +3,7 @@ package com.example.laptopshop.config;
 import com.example.laptopshop.entity.Laptop;
 import com.example.laptopshop.entity.Role;
 import com.example.laptopshop.entity.User;
-import com.example.laptopshop.repository.RoleRepository;
-import com.example.laptopshop.repository.UserRepository;
+import com.example.laptopshop.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,12 +14,22 @@ public class DataInitializer implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final LaptopRepository laptopRepository;
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
+
 
     public DataInitializer(RoleRepository roleRepository,
                            UserRepository userRepository,
+                           LaptopRepository laptopRepository,
+                           OrderRepository orderRepository,
+                           OrderDetailRepository orderDetailRepository,
                            PasswordEncoder passwordEncoder) {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.laptopRepository = laptopRepository;
+        this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -74,6 +83,5 @@ public class DataInitializer implements CommandLineRunner {
             userRepository.save(user);
             System.out.println("✓ Created User: user / user123");
         }
-
     }
 }
