@@ -28,6 +28,8 @@ public class Laptop {
     private String cpuInfo;
     @Column(name = "RAM_Info", length = 255)
     private String ramInfo;
+    @Column(name = "price", nullable = false)
+    private double price;
 
     @ManyToOne
     @JoinColumn(

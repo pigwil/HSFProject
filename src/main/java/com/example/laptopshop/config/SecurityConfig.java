@@ -8,6 +8,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler; // ✅ THÊM
+import jakarta.servlet.http.HttpServletRequest; // ✅ THÊM
+import jakarta.servlet.http.HttpServletResponse; // ✅ THÊM
+import org.springframework.security.core.Authentication; // ✅ THÊM
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +26,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // keep CSRF enabled (default) for form-based sessions
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
@@ -30,7 +33,10 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+                        // ❌ XÓA DÒNG CŨ:
+                        // .defaultSuccessUrl("/", true)
+                        // ✅ THÊM HANDLER TỰ ĐỘNG CHUYỂN HƯỚNG THEO ROLE:
+                        .successHandler(customAuthSuccessHandler())
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -38,13 +44,25 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
-
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .userDetailsService(userDetailsService);
 
         return http.build();
+    }
+
+    // ✅ THÊM MỚI: Handler để redirect đúng trang sau đăng nhập
+    @Bean
+    public AuthenticationSuccessHandler customAuthSuccessHandler() {
+        return (HttpServletRequest request, HttpServletResponse response, Authentication authentication) -> {
+            String role = authentication.getAuthorities().iterator().next().getAuthority();
+            if (role.equals("ROLE_ADMIN")) {
+                response.sendRedirect("/admin"); // nếu là admin
+            } else {
+                response.sendRedirect("/"); // nếu là user
+            }
+        };
     }
 
     @Bean

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý đơn hàng</title>
+</head>
+<body>
+
+<h2>Danh sách đơn hàng</h2>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Người tạo</th>
+        <th>Ngày tạo</th>
+        <th>Loại</th>
+        <th>Trạng thái</th>
+        <th>Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.createdBy.fullName}"></td>
+        <td th:text="${order.createdDate}"></td>
+        <td th:text="${order.orderType}"></td>
+        <td th:text="${order.orderStatus}"></td>
+        <td>
+            <a th:href="@{'/admin/orders/' + ${order.id}}">Chi tiết</a>
+            <form th:action="@{'/admin/orders/' + ${order.id} + '/status'}" method="post" style="display:inline;">
+                <select name="newStatus">
+                    <option value="PENDING">PENDING</option>
+                    <option value="SHIPPED">SHIPPED</option>
+                    <option value="CONFIRMED">CONFIRMED</option>
+                </select>
+                <button type="submit">Cập nhật</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.example.laptopshop.config;
 
+import com.example.laptopshop.entity.Laptop;
 import com.example.laptopshop.entity.Role;
 import com.example.laptopshop.entity.User;
 import com.example.laptopshop.repository.RoleRepository;
@@ -61,5 +62,18 @@ public class DataInitializer implements CommandLineRunner {
         } else {
             System.out.println("✓ Admin user already exists!");
         }
+        if (userRepository.findByUsername("user") == null) {
+            User user = new User();
+            user.setUserCode("USER001");
+            user.setFullName("Nguyễn Văn A");
+            user.setUsername("user");
+            user.setPassword(passwordEncoder.encode("user123"));
+            user.setAddress("TP. Hồ Chí Minh");
+            user.setPhone("0987654321");
+            user.setRole(userRole);
+            userRepository.save(user);
+            System.out.println("✓ Created User: user / user123");
+        }
+
     }
 }

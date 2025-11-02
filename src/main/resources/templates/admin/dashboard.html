@@ -1,22 +1,140 @@
-<!-- templates/admin/dashboard.html -->
-<div th:fragment="content">
-    <h2>Dashboard</h2>
-    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-        <div class="card" style="flex: 1; min-width: 200px; background: #3498db; color: white; text-align: center;">
-            <h3>Total Revenue</h3>
-            <h2 th:text="${#numbers.formatCurrency(totalRevenue)}">$100,000</h2>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Admin</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: white;
+            height: 100vh;
+            padding-top: 20px;
+            position: fixed;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        /* Main content */
+        .main {
+            margin-left: 200px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        /* Card styles */
+        .card {
+            display: inline-block;
+            width: 23%;
+            margin-right: 1%;
+            padding: 10px;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .card-blue { background-color: #007bff; }
+        .card-green { background-color: #28a745; }
+        .card-yellow { background-color: #ffc107; color: black; }
+        .card-red { background-color: #dc3545; }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="/admin/users">Users</a>
+    <a href="/admin/orders">Orders</a>
+    <a href="/admin/laptops">Laptops</a>
+</div>
+
+<!-- Main content -->
+<div class="main">
+    <h2>Dashboard Admin</h2>
+
+    <!-- Row tổng quan -->
+    <div>
+        <div class="card card-blue">
+            <h5>Tổng Users</h5>
+            <p th:text="${totalUsers}">0</p>
         </div>
-        <div class="card" style="flex: 1; min-width: 200px; background: #27ae60; color: white; text-align: center;">
-            <h3>Orders Today</h3>
-            <h2 th:text="${todayOrders}">5</h2>
+        <div class="card card-green">
+            <h5>Tổng Orders</h5>
+            <p th:text="${totalOrders}">0</p>
         </div>
-        <div class="card" style="flex: 1; min-width: 200px; background: #f39c12; color: white; text-align: center;">
-            <h3>In Stock</h3>
-            <h2 th:text="${totalStock}">120</h2>
+        <div class="card card-yellow">
+            <h5>Tổng Stock</h5>
+            <p th:text="${totalStock}">0</p>
         </div>
-        <div class="card" style="flex: 1; min-width: 200px; background: #e74c3c; color: white; text-align: center;">
-            <h3>Users</h3>
-            <h2 th:text="${totalUsers}">50</h2>
+        <div class="card card-red">
+            <h5>Tổng Revenue</h5>
+            <p th:text="${totalRevenue} + ' đ'">0 đ</p>
         </div>
     </div>
+
+    <!-- Doanh thu hôm nay -->
+    <div class="card" style="background-color:#17a2b8; color:white; width:100%; margin-top:10px;">
+        <h5>Doanh thu hôm nay</h5>
+        <p th:text="${revenueToday} + ' đ'">0 đ</p>
+    </div>
+
+    <!-- Top 5 sản phẩm bán chạy -->
+    <h4>Top 5 sản phẩm bán chạy</h4>
+    <table>
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng bán</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="prod, iterStat : ${topProducts}">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td th:text="${prod[0]}"></td>
+            <td th:text="${prod[1]}"></td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
+
+<script>
+    function callApi(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log("API Response:", data);
+                alert("Check console for API response!");
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>

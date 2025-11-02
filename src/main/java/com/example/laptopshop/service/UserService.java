@@ -8,17 +8,15 @@ import com.example.laptopshop.entity.User;
 import com.example.laptopshop.util.UserUtils;
 import com.example.laptopshop.repository.RoleRepository;
 import com.example.laptopshop.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-@Service
+        @Service
 public class UserService {
 
     private final UserRepository userRepo;
@@ -78,6 +76,5 @@ public class UserService {
 
         return Collections.emptyList();
     }
-
     // login handled by Spring Security; you may expose an endpoint that forwards to form-login
 }
